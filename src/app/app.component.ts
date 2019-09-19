@@ -11,19 +11,23 @@ import {DataService} from './data.service';
 export class AppComponent implements OnInit {
   title = 'lab2-web';
 
-  shops: string;
+  shops: Shop[];
 
-  products: string;
+  products: Product[];
+
+  displayedColumns: string[] = ['id', 'name', 'price', 'shop'];
+  dataSource;
 
   constructor(private dataService: DataService) {
   }
 
   ngOnInit(): void {
-    this.dataService.getShops().subscribe(data => {
-      this.shops = JSON.stringify(data);
-    });
     this.dataService.getProducts().subscribe(data => {
-      this.products = JSON.stringify(data);
+      this.dataService.getShops().subscribe(d => {
+        this.shops = d;
+      });
+      this.products = data;
+      this.dataSource = data;
     });
   }
 
