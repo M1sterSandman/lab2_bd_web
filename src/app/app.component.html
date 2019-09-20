@@ -1,28 +1,48 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="container">
+  <h2 class="header-text">Products list</h2>
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> № </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
+  <button mat-button class="add" (click)="addProduct()">Add</button>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Назва товару </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+  <table mat-table [dataSource]="products$ | async" class="mat-elevation-z8">
 
-  <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef> Ціна </th>
-    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-  </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> №</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="shop">
-    <th mat-header-cell *matHeaderCellDef> Магазин </th>
-    <td mat-cell *matCellDef="let element"> {{shops[element.shopId-1].name}} </td>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Назва товару</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Ціна</th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
 
+    <ng-container matColumnDef="shop">
+      <th mat-header-cell *matHeaderCellDef> Магазин</th>
+      <td mat-cell *matCellDef="let element"> {{element.shop_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="event">
+      <th mat-header-cell *matHeaderCellDef> Дія</th>
+      <td mat-cell *matCellDef="let element">
+
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editField(element)">Edit</button>
+          <button mat-menu-item (click)="deleteField(element)">Delete</button>
+        </mat-menu>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -6,5 +6,6 @@ interface Product {
   name: string;
   by_weight: boolean;
   price: number;
+  shop_name: string;
   shop_id: number;
 }
